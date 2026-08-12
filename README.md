@@ -7,7 +7,7 @@ A fast, browser-based frame generator for **Hacker House Goa 2026**. Upload one 
 Paste your Vercel link here after deployment:
 
 ```text
-https://your-vercel-deployment-link.vercel.app
+[https://your-vercel-deployment-link.vercel.app](https://hacker-house-goa-tawny.vercel.app/)
 ```
 
 ## Features
