@@ -390,13 +390,36 @@ input::placeholder {
   color: #003e25;
 }
 
-.download-button {
+.button-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
   width: 100%;
+}
+
+.download-button,
+.share-button {
   min-height: 58px;
   border: 0;
   border-radius: 8px;
+}
+
+.download-button {
   background: #ffe100;
   color: #003e25;
+}
+
+.share-button {
+  background: #1da1f2;
+  color: #ffffff;
+}
+
+.share-button:hover:not(:disabled) {
+  background: #1a91da;
+}
+
+.download-button:hover:not(:disabled) {
+  background: #ffed4e;
 }
 
 .empty-state {

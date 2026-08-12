@@ -1,5 +1,5 @@
 import { ChangeEvent, DragEvent, useEffect, useMemo, useRef, useState } from 'react';
-import { Download, ImagePlus, Loader2, RefreshCcw, Ticket, UserRound } from 'lucide-react';
+import { Download, ImagePlus, Loader2, RefreshCcw, Share2, Ticket, UserRound } from 'lucide-react';
 import heroImage from './assets/hero.png';
 import { generateBuilderCard, generatePfpFrame, sanitiseFileName } from './utils/canvasGenerator';
 import { ensureBrowserFriendlyImage } from './utils/heicConverter';
@@ -150,6 +150,20 @@ function App() {
     downloadBlob(activeBlob, `${filenameBase}-${suffix}.png`);
   }
 
+  async function shareOnTwitter() {
+    if (!activeBlob) return;
+    try {
+      await navigator.clipboard.write([
+        new ClipboardItem({ 'image/png': activeBlob }),
+      ]);
+      window.open('https://twitter.com/compose/tweet', '_blank');
+      alert('Image copied to clipboard! Press Ctrl+V to paste on Twitter.');
+    } catch (err) {
+      console.error('Could not copy image:', err);
+      window.open('https://twitter.com/compose/tweet', '_blank');
+    }
+  }
+
   return (
     <main className="page">
       <header className="site-header">
@@ -258,10 +272,16 @@ function App() {
 
           {error ? <p className="error-message">{error}</p> : null}
 
-          <button className="download-button" type="button" onClick={downloadActive} disabled={!activeBlob || busy}>
-            <Download size={18} />
-            Download {mode === 'pfp' ? 'PFP' : 'Builder ID'}
-          </button>
+          <div className="button-group">
+            <button className="download-button" type="button" onClick={downloadActive} disabled={!activeBlob || busy}>
+              <Download size={18} />
+              Download {mode === 'pfp' ? 'PFP' : 'Builder ID'}
+            </button>
+            <button className="share-button" type="button" onClick={shareOnTwitter} disabled={!activeBlob || busy}>
+              <Share2 size={18} />
+              Share on Twitter
+            </button>
+          </div>
         </aside>
       </section>
 
